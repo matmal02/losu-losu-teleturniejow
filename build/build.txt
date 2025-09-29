@@ -1,0 +1,15 @@
+
+scripts/router/app.js
+----------------
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/requirejs/require.js
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/underscore/underscore-umd-min.js
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/jquery/dist/jquery.js
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/backbone/backbone.js
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/chance/chance.js
+/Users/mateuszmalkiewicz/wheel-of-fortune/node_modules/moment/moment.js
+scripts/vendor/palette.js
+scripts/helper/math.js
+scripts/models/wheel_element.js
+scripts/collections/google_sheets_v4_wheel_collection.js
+scripts/views/wheel.js
+scripts/router/app.js
