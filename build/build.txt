@@ -5,11 +5,12 @@ scripts/router/app.js
 /Users/mateuszmalkiewicz/losulosu/node_modules/underscore/underscore-umd-min.js
 /Users/mateuszmalkiewicz/losulosu/node_modules/jquery/dist/jquery.js
 /Users/mateuszmalkiewicz/losulosu/node_modules/backbone/backbone.js
-/Users/mateuszmalkiewicz/losulosu/node_modules/chance/chance.js
-/Users/mateuszmalkiewicz/losulosu/node_modules/moment/moment.js
 scripts/vendor/palette.js
+/Users/mateuszmalkiewicz/losulosu/node_modules/moment/moment.js
 scripts/helper/math.js
 scripts/models/wheel_element.js
+/Users/mateuszmalkiewicz/losulosu/node_modules/chance/chance.js
 scripts/collections/google_sheets_v4_wheel_collection.js
 scripts/views/wheel.js
+scripts/config/sheetConfig.js
 scripts/router/app.js

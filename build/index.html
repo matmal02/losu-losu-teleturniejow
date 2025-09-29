@@ -21,7 +21,7 @@
 		function(Backbone, App) {
 			var app = new App();
 			app.route('', 'init', function() {
-				app.navigate("wheel/data:google_sheet,id=1yZ4SDC6pJy42tuInXZyA8Bbuw3hUz13TXeBrj3OV3Dg,api_key=AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k", {trigger: true});
+				app.navigate("wheel/sheet:losulosu", {trigger: true});
 			});
 			Backbone.history.start({pushState: true, root: "/"});	
 		}

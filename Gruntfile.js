@@ -59,7 +59,7 @@ module.exports = function(grunt) {
                     data: {
                         appTitle: 'Wheel of Fortune',
                         baseUrl: '/',
-                        initialRoute: `wheel/data:google_sheet,id=${sheet_id},api_key=${api_key}`
+                        initialRoute: `wheel/sheet:losulosu`
                     }
                 },
                 files: {
