@@ -1,4 +1,7 @@
 module.exports = function(grunt) {
+    require('dotenv').config();
+    const sheet_id = process.env.SHEET_ID;
+    const api_key = process.env.GOOGLE_API;
 
     const sass = require('sass');
     var rewrite = require('connect-modrewrite');
@@ -56,7 +59,7 @@ module.exports = function(grunt) {
                     data: {
                         appTitle: 'Wheel of Fortune',
                         baseUrl: '/',
-                        initialRoute: 'wheel/data:google_sheet,id=1yZ4SDC6pJy42tuInXZyA8Bbuw3hUz13TXeBrj3OV3Dg,api_key=AIzaSyDfBlrdttnuF4T8qhSDjey3xcgPzKdDYLo'
+                        initialRoute: `wheel/data:google_sheet,id=${sheet_id},api_key=${api_key}`
                     }
                 },
                 files: {

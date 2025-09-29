@@ -34098,7 +34098,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
 
                 var elements = new Chance(33).shuffle(response.values); // fixed shuffle
                 _.each(elements, function(element) {
-                    var label = element[0] + "(" + element[1] + ")";
+                    var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
                     if (fitness > 0) {
                         models.push({

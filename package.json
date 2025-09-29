@@ -18,6 +18,7 @@
   "dependencies": {
     "backbone": "^1.4.0",
     "chance": "^1.1.8",
+    "dotenv": "^17.2.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%- appTitle %></title>	
+	<title>Losu losu losu</title>	
 	<link rel="stylesheet" type="text/css" href="<%- baseUrl %>style/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
