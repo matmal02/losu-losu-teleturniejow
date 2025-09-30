@@ -32,10 +32,10 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
-                this.spinAudio = new Audio("https://s9481.chomikuj.pl/Audio.ashx?e=kxAMdWQJvcJQzfJEaRyqSI4gPhgEsmfPpA9RrArFy-SOOG578LlJ7fxV3Q2Kb1H9c4woPVkBwVg2EePs4ZCW0aypvLR67UiKZlCZDreslX4&pv=2");
+                this.spinAudio = new Audio("sounds/spin.mp3");
                 this.spinAudio.preload = "auto";
                 this.spinAudio.loop = false;
-                this.spinAudio.volume = 0.5;
+                this.spinAudio.volume = 1;
                 this.audioEnabled = true;
 
                 if ($("#wheel-audio-toggle").length === 0) {
@@ -43,7 +43,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
     
     const toggleBtn = $("<button>")
         .attr("id", "wheel-audio-toggle")
-        .text("🔊 Audio: On")
+        .text("Audio: On")
         .css({
             padding: "8px 12px",
             fontSize: "14px",
@@ -252,9 +252,9 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                     return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
                 }
 
-                if (this.audioEnabled && this.spinAudio) {
-                    this.spinAudio.currentTime = 0;
-                    this.spinAudio.play();
+                if (self.audioEnabled && self.spinAudio) {
+                    self.spinAudio.currentTime = 0;
+                    self.spinAudio.play();
                 }
 
                 var animation_start = moment();
