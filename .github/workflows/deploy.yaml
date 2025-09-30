@@ -24,6 +24,9 @@ jobs:
       - name: Run build-scripts
         run: |
           node build-scripts/generate-config.js
+          env:
+            SHEET_ID: ${{ secrets.SHEET_ID }}
+            API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       - name: Install, build
         run: |
           yarn install
