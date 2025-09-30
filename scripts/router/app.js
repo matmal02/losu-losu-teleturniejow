@@ -34320,7 +34320,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 var ctx = canvas.getContext("2d");
                 var pixel_ratio = window.devicePixelRatio;
 
-                width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 400);
+                width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 800);
                 height = width;
 
                 canvas.width = width * pixel_ratio;
