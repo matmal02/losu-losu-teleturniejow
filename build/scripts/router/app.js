@@ -34090,7 +34090,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
             model: WheelElement,
 
             initialize: function(models, options) {
-                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki?key=' + options.api_key;
+                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:F?key=' + options.api_key;
             },
 
             parse: function(response, options) {
@@ -34401,15 +34401,8 @@ self.showResultPopup(selected_label, selected_color, selected_link);
 
         return Wheel;
     });
-
-define('scripts/config/sheetConfig',[], function() {
-    return {
-        losulosu: {
-            spreadsheet_id: "1yZ4SDC6pJy42tuInXZyA8Bbuw3hUz13TXeBrj3OV3Dg",
-            api_key: "AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k"
-        }
-    };
-});
+;
+define("scripts/config/sheetConfig", function(){});
 
 define('scripts/router/app',["backbone", "underscore", "palette", "scripts/views/wheel", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/config/sheetConfig"],
 function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig) {
