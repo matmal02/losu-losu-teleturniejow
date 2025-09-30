@@ -32,6 +32,36 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
+                this.spinAudio = new Audio("https://s9481.chomikuj.pl/Audio.ashx?e=kxAMdWQJvcJQzfJEaRyqSI4gPhgEsmfPpA9RrArFy-SOOG578LlJ7fxV3Q2Kb1H9c4woPVkBwVg2EePs4ZCW0aypvLR67UiKZlCZDreslX4&pv=2");
+                this.spinAudio.preload = "auto";
+                this.spinAudio.loop = false;
+                this.spinAudio.volume = 0.5;
+                this.audioEnabled = true;
+
+                if ($("#wheel-audio-toggle").length === 0) {
+    this.$el.append(`
+        <button id="wheel-audio-toggle" 
+                style="
+                    display: block;
+                    margin: 10px auto 0 auto;
+                    padding: 8px 12px;
+                    font-size: 14px;
+                    border-radius: 4px;
+                    border: none;
+                    background: #444;
+                    color: #fff;
+                    cursor: pointer;
+                ">
+            Audio: On
+        </button>
+    `);
+    const self = this;
+    $("#wheel-audio-toggle").on("click", function() {
+        self.toggleAudio();
+        $(this).text("Audio: " + (self.audioEnabled ? "On" : "Off"));
+    });
+}
+
                 if ($("#wheel-popup").length === 0) {
     $("body").append(`
         <div id="wheel-popup" 
@@ -202,6 +232,11 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                     return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
                 }
 
+                if (this.audioEnabled && this.spinAudio) {
+                    this.spinAudio.currentTime = 0;
+                    this.spinAudio.play();
+                }
+
                 var animation_start = moment();
                 var animation_interval = setInterval(function() {
                     var time = moment().diff(animation_start);
@@ -218,6 +253,10 @@ var selected_link = selectedElement.get("link");
 self.showResultPopup(selected_label, selected_color, selected_link);
                     after();
                 }, self.animation_duration);
+            },
+
+            toggleAudio: function() {
+                this.audioEnabled = !this.audioEnabled;
             },
 
             showResultPopup: function(label, color, link) {
