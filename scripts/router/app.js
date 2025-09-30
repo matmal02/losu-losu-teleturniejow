@@ -34090,7 +34090,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
             model: WheelElement,
 
             initialize: function(models, options) {
-                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki?key=' + options.api_key;
+                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:F?key=' + options.api_key;
             },
 
             parse: function(response, options) {
