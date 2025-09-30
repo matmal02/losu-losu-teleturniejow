@@ -10,9 +10,9 @@
 </head>
 <body>
 <div id="content">
-	<div id="header">
+	<header>
 		<h1>Losu losu losu</h1>
-	</div>
+	</header>
 	<div id="wheel">
 		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
