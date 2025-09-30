@@ -34302,7 +34302,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     ctx.fillStyle = "#ffffff";
                     ctx.textAlign = "right";
                     ctx.textBaseline = "middle";
-                    ctx.font = window.devicePixelRatio * 10 + "px Arial";
+                    ctx.font = window.devicePixelRatio * 15 + "px Arial";
                     ctx.fillText(this.labels[i], 0, 0);
 
                     ctx.restore();
