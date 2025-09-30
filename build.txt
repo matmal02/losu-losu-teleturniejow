@@ -1,0 +1,16 @@
+
+scripts/router/app.js
+----------------
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/requirejs/require.js
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/underscore/underscore-umd-min.js
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/jquery/dist/jquery.js
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/backbone/backbone.js
+scripts/vendor/palette.js
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/moment/moment.js
+scripts/helper/math.js
+scripts/models/wheel_element.js
+/home/runner/work/losu-losu-teleturniejow/losu-losu-teleturniejow/node_modules/chance/chance.js
+scripts/collections/google_sheets_v4_wheel_collection.js
+scripts/views/wheel.js
+scripts/config/sheetConfig.js
+scripts/router/app.js
