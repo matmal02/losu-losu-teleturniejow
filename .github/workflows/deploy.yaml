@@ -21,7 +21,10 @@ jobs:
           corepack enable
           corepack prepare yarn@4.10.3 --activate
           yarn -v
-      - name: install, build, and test
+      - name: Run build-scripts
+        run: |
+          node build-scripts/generate-config.js
+      - name: Install, build
         run: |
           yarn install
           yarn exec grunt build:production
