@@ -24,7 +24,7 @@ jobs:
       - name: install, build, and test
         run: |
           yarn install
-          yarn exec grunt build server
+          yarn exec grunt build:production
           yarn test
         env:
           CI: true
