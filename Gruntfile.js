@@ -73,6 +73,19 @@ module.exports = function(grunt) {
             }
         },
 
+        copy: {
+            sounds: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'source/sounds',
+                        src: ['**/*'],
+                        dest: 'build/sounds'
+                    }
+                ]
+            }
+        },
+
         // QUnit tests
         qunit: {
             all: ['test/**/*.html']
@@ -90,8 +103,8 @@ module.exports = function(grunt) {
     // Define tasks
     grunt.registerTask('lint', ['jshint:source']);
     grunt.registerTask('test', ['lint', 'jshint:test', 'qunit:all']);
-    grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'sass']);
-    grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'sass', 'cssmin:all']);
+    grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'sass', 'copy:sounds']);
+    grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'sass', 'cssmin:all', 'copy:sounds']);
     grunt.registerTask('build', ['build:development']);
     grunt.registerTask('default', ['build']);
 };
