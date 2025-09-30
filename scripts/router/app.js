@@ -34157,28 +34157,48 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 this.audioEnabled = true;
 
                 if ($("#wheel-audio-toggle").length === 0) {
-    this.$el.append(`
-        <button id="wheel-audio-toggle" 
-                style="
-                    display: block;
-                    margin: 10px auto 0 auto;
-                    padding: 8px 12px;
-                    font-size: 14px;
-                    border-radius: 4px;
-                    border: none;
-                    background: #444;
-                    color: #fff;
-                    cursor: pointer;
-                ">
-            Audio: On
-        </button>
-    `);
+    const container = $("<div>").css({ "text-align": "center", "margin-top": "10px" });
+    
+    const toggleBtn = $("<button>")
+        .attr("id", "wheel-audio-toggle")
+        .text("🔊 Audio: On")
+        .css({
+            padding: "8px 12px",
+            fontSize: "14px",
+            borderRadius: "4px",
+            border: "none",
+            background: "#444",
+            color: "#fff",
+            cursor: "pointer",
+            marginRight: "10px"
+        });
+    
+    const volumeSlider = $("<input>")
+        .attr({ type: "range", min: 0, max: 1, step: 0.01, value: this.spinAudio.volume })
+        .attr("id", "wheel-audio-volume")
+        .css({ verticalAlign: "middle" });
+    
+    container.append(toggleBtn, volumeSlider);
+    this.$el.append(container);
+
     const self = this;
-    $("#wheel-audio-toggle").on("click", function() {
+    toggleBtn.on("click", function() {
         self.toggleAudio();
-        $(this).text("Audio: " + (self.audioEnabled ? "On" : "Off"));
+        const vol = self.audioEnabled ? self.spinAudio.volume : 0;
+        const toggleBtnText = vol === 0 ? "Audio: Off" : "Audio: On";
+        $(this).text(toggleBtnText);
+    });
+    
+    volumeSlider.on("input", function() {
+        const vol = parseFloat($(this).val());
+        self.spinAudio.volume = vol;
+
+        // Update toggle button text based on volume
+        const toggleBtnText = vol === 0 ? "Audio: Off" : "Audio: On";
+        $("#wheel-audio-toggle").text(toggleBtnText);
     });
 }
+
 
                 if ($("#wheel-popup").length === 0) {
     $("body").append(`
