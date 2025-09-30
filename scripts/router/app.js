@@ -34401,8 +34401,15 @@ self.showResultPopup(selected_label, selected_color, selected_link);
 
         return Wheel;
     });
-;
-define("scripts/config/sheetConfig", function(){});
+
+define('scripts/config/sheetConfig',[], function() {
+    return {
+        losulosu: {
+            spreadsheet_id: "1yZ4SDC6pJy42tuInXZyA8Bbuw3hUz13TXeBrj3OV3Dg",
+            api_key: "AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k"
+        }
+    };
+});
 
 define('scripts/router/app',["backbone", "underscore", "palette", "scripts/views/wheel", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/config/sheetConfig"],
 function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig) {
