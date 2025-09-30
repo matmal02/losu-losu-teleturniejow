@@ -2,6 +2,22 @@ body {
 	background-color: #171811;
 	color: #ffffff;
 	margin: 0;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+main {
+	flex: 1;
+}
+
+.header {
+	text-align: center;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
 }
 
 #wheel {
