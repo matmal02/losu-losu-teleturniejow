@@ -16,10 +16,12 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                 _.each(elements, function(element) {
                     var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
+                    var link = element[5];
                     if (fitness > 0) {
                         models.push({
                             label: label,
-                            fitness: fitness
+                            fitness: fitness,
+                            link: link
                         });
                     }
                 }, this);

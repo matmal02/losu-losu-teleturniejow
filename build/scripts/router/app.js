@@ -34100,10 +34100,12 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                 _.each(elements, function(element) {
                     var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
+                    var link = element[5];
                     if (fitness > 0) {
                         models.push({
                             label: label,
-                            fitness: fitness
+                            fitness: fitness,
+                            link: link
                         });
                     }
                 }, this);
@@ -34307,6 +34309,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 var self = this;
 
                 var index = math.roulette_wheel_selection(self.arc_widths, self.random);
+                var selectedElement = self.collection.at(index);
                 var partial_exclusive = _.reduce(self.arc_widths.slice(0, index), Math.sum, 0);
                 var partial_inclusive = partial_exclusive + self.arc_widths[index];
                 var angle_selected = partial_exclusive + (partial_inclusive - partial_exclusive) / 2;
@@ -34327,48 +34330,51 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
 
                 setTimeout(function() {
                     clearInterval(animation_interval);
-                    var selected_label = self.labels[index];
+                    var selected_label = selectedElement.get("label");
 var selected_color = self.colors[index]; // slice color
-self.showResultPopup(selected_label, selected_color);
+var selected_link = selectedElement.get("link");
+self.showResultPopup(selected_label, selected_color, selected_link);
                     after();
                 }, self.animation_duration);
             },
 
-            showResultPopup: function(label, color) {
-    var popup = $("#wheel-popup");
-    popup.text("Selected: " + label);
+            showResultPopup: function(label, color, link) {
+            var popup = $("#wheel-popup");
+            popup.empty();
 
-    // Compute brightness of hex color
-    var hex = color.replace(/^#/, '');
-    var r = parseInt(hex.substr(0,2),16);
-    var g = parseInt(hex.substr(2,2),16);
-    var b = parseInt(hex.substr(4,2),16);
-    var brightness = (r*299 + g*587 + b*114)/1000;
-    var textColor = brightness > 128 ? "#000" : "#fff";
+            var labelDiv = $("<div>").text(label).css({ "margin-bottom": "10px", "font-weight":"bold" });
+            popup.append(labelDiv);
 
-    // Set popup background and text color
-    popup.css({ 
-        background: "#" + color, 
-        color: textColor, 
-        display: "block",
-        transform: "translate(-50%,-50%) scale(0.5)",
-        opacity: 0
-    });
+            if (link) {
+                var linkEl = $("<a>")
+                    .attr("href", link)
+                    .attr("target","_blank")
+                    .text("Link do materiału")
+                    .css({ "color":"#00f","text-decoration":"underline","cursor":"pointer" });
+                popup.append(linkEl);
+            }
 
-    // Animate scale & fade-in
-    setTimeout(() => {
-        popup.css({ transform: "translate(-50%,-50%) scale(1)", opacity: 1 });
-    }, 10);
+            var hex = color.replace(/^#/,"");
+            var r=parseInt(hex.substr(0,2),16), g=parseInt(hex.substr(2,2),16), b=parseInt(hex.substr(4,2),16);
+            var brightness=(r*299+g*587+b*114)/1000;
+            var textColor = brightness>128 ? "#000" : "#fff";
 
-    // Remove previous click handler
-    popup.off("click");
+            popup.css({ 
+                background:"#"+color,
+                color:textColor,
+                display:"block",
+                transform:"translate(-50%,-50%) scale(0.5)",
+                opacity:0
+            });
 
-    // Dismiss on click anywhere
-    $(document).one("click", () => {
-        popup.css({ transform: "translate(-50%,-50%) scale(0.5)", opacity: 0 });
-        setTimeout(() => popup.css({ display: "none" }), 300);
-    });
-},
+            setTimeout(()=>{ popup.css({ transform:"translate(-50%,-50%) scale(1)", opacity:1 }); },10);
+
+            popup.off("click");
+            popup.on("click", function(){
+                popup.css({ transform:"translate(-50%,-50%) scale(0.5)", opacity:0 });
+                setTimeout(()=>popup.css({ display:"none" }), 300);
+            });
+        },
 
 
             render_info: function(message) {

@@ -11,7 +11,7 @@
 		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
 		</canvas>
-		<div class="canvas-label">Click wheel to spin</div>
+		<div class="canvas-label">Kliknij na koło by zakręcić</div>
 	</div>
 </div>
 </body>
