@@ -34150,7 +34150,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
-                this.spinAudio = new Audio("../sounds/spin.mp3");
+                this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin.mp3");
                 this.spinAudio.preload = "auto";
                 this.spinAudio.loop = false;
                 this.spinAudio.volume = 1;
