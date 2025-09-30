@@ -17,7 +17,7 @@
 		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
 		</canvas>
-		<div class="canvas-label">Kliknij na koło by zakręcić</div>
+		<div class="canvas-label">Kliknij koło by zakręcić</div>
 	</div>
 	<footer>
 		<div>Created by <a href="https://github.com/matmal02">matmal02</a>. Based on <a href="https://github.com/hoesler/wheel-of-fortune">wheel-of-fortune</a> app by <a href="https://github.com/hoesler">Christoph Hoesler</a>.</div>
