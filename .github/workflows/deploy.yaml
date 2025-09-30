@@ -36,7 +36,7 @@ jobs:
             echo "No test script defined. Skipping tests."
           fi
       - name: Deploy to production
-        uses: awibox/deploy-to-github-pages-action@master
+        uses: awibox/deploy-to-github-pages-action@main
         env:
           AUTHOR: matmal02
           BUILD_PATH: ./build
