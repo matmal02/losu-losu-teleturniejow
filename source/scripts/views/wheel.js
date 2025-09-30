@@ -32,7 +32,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
-                this.spinAudio = new Audio("sounds/spin.mp3");
+                this.spinAudio = new Audio("../sounds/spin.mp3");
                 this.spinAudio.preload = "auto";
                 this.spinAudio.loop = false;
                 this.spinAudio.volume = 1;
