@@ -1,0 +1,37 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.10.3 --activate
+          yarn -v
+      - name: install, build, and test
+        run: |
+          yarn install
+          yarn exec grunt build server
+          yarn test
+        env:
+          CI: true
+      - name: Deploy to production
+        uses: awibox/deploy-to-github-pages-action@master
+        env:
+          AUTHOR: matmal02
+          BUILD_PATH: ./build
+          GITHUB_PAGE_NAME: matmal02.github.io
+          PA_TOKEN: ${{ secrets.PA_TOKEN }}
