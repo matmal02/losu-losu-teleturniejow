@@ -46,7 +46,7 @@ module.exports = function(grunt) {
                 options: {
                     data: {
                         appTitle: 'Losu losu',
-                        baseUrl: '/',
+                        baseUrl: '/losu-losu-teleturniejow/',
                         initialRoute: 'wheel/sheet:losulosu'
                     }
                 },
