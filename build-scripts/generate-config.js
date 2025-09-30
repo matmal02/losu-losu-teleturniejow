@@ -7,7 +7,7 @@ const sheetId = process.env.SHEET_ID;
 const apiKey = process.env.GOOGLE_API;
 
 if (!sheetId || !apiKey) {
-    console.error("SHEET_ID or API_KEY missing in .env");
+    console.error("SHEET_ID or GOOGLE_API missing in .env");
     process.exit(1);
 }
 
