@@ -89,6 +89,16 @@ module.exports = function(grunt) {
                     src: 'source/404.html',
                     dest: 'build/404.html'
                 }
+            },
+            assets: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'source/assets',
+                        src: ['**/*'],
+                        dest: 'build/assets'
+                    }
+                ]
             }
         },
 
@@ -110,8 +120,8 @@ module.exports = function(grunt) {
     // Define tasks
     grunt.registerTask('lint', ['jshint:source']);
     grunt.registerTask('test', ['lint', 'jshint:test', 'qunit:all']);
-    grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'sass', 'copy:sounds', 'copy:html404']);
-    grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'sass', 'cssmin:all', 'copy:sounds', 'copy:html404']);
+    grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'sass', 'copy:sounds', 'copy:html404', 'copy:assets']);
+    grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'sass', 'cssmin:all', 'copy:sounds', 'copy:html404', 'copy:assets']);
     grunt.registerTask('build', ['build:development']);
     grunt.registerTask('default', ['build']);
 };
