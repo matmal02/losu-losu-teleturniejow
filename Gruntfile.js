@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                     data: {
                         appTitle: 'Losu losu',
                         baseUrl: '/losu-losu-teleturniejow/',
-                        initialRoute: 'wheel/sheet:losulosu'
+                        initialRoute: ''
                     }
                 },
                 files: { 'build/index.html': ['source/index.html.tpl'] }
