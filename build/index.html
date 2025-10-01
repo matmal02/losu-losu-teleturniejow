@@ -17,7 +17,7 @@
 		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
 		</canvas>
-		<div class="canvas-label">Kliknij koło by zakręcić</div>
+		<div class="canvas-label">Kliknij koło, by zakręcić</div>
 	</div>
 	<footer>
 		<div>Created by <a href="https://github.com/matmal02">matmal02</a>. Based on <a href="https://github.com/hoesler/wheel-of-fortune">wheel-of-fortune</a> app by <a href="https://github.com/hoesler">Christoph Hoesler</a>.</div>
@@ -30,7 +30,7 @@
 		function(Backbone, App) {
 			var app = new App();
 			app.route('', 'init', function() {
-				app.navigate("wheel/sheet:losulosu", {trigger: true});
+				app.navigate("", {trigger: true});
 			});
 			Backbone.history.start({pushState: true, root: "/losu-losu-teleturniejow/"});	
 		}

@@ -34150,6 +34150,56 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
+                this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin.mp3");
+                this.spinAudio.preload = "auto";
+                this.spinAudio.loop = false;
+                this.spinAudio.volume = 1;
+                this.audioEnabled = true;
+
+                if ($("#wheel-audio-toggle").length === 0) {
+    const container = $("<div>").css({ "text-align": "center", "margin-top": "10px" });
+    
+    const toggleBtn = $("<button>")
+        .attr("id", "wheel-audio-toggle")
+        .text("Audio: On")
+        .css({
+            padding: "8px 12px",
+            fontSize: "14px",
+            borderRadius: "4px",
+            border: "none",
+            background: "#444",
+            color: "#fff",
+            cursor: "pointer",
+            marginRight: "10px"
+        });
+    
+    const volumeSlider = $("<input>")
+        .attr({ type: "range", min: 0, max: 1, step: 0.01, value: this.spinAudio.volume })
+        .attr("id", "wheel-audio-volume")
+        .css({ verticalAlign: "middle" });
+    
+    container.append(toggleBtn, volumeSlider);
+    this.$el.append(container);
+
+    const self = this;
+    toggleBtn.on("click", function() {
+        self.toggleAudio();
+        const vol = self.audioEnabled ? self.spinAudio.volume : 0;
+        const toggleBtnText = vol === 0 ? "Audio: Off" : "Audio: On";
+        $(this).text(toggleBtnText);
+    });
+    
+    volumeSlider.on("input", function() {
+        const vol = parseFloat($(this).val());
+        self.spinAudio.volume = vol;
+
+        // Update toggle button text based on volume
+        const toggleBtnText = vol === 0 ? "Audio: Off" : "Audio: On";
+        $("#wheel-audio-toggle").text(toggleBtnText);
+    });
+}
+
+
                 if ($("#wheel-popup").length === 0) {
     $("body").append(`
         <div id="wheel-popup" 
@@ -34252,7 +34302,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     ctx.fillStyle = "#ffffff";
                     ctx.textAlign = "right";
                     ctx.textBaseline = "middle";
-                    ctx.font = window.devicePixelRatio * 10 + "px Arial";
+                    ctx.font = window.devicePixelRatio * 15 + "px Arial";
                     ctx.fillText(this.labels[i], 0, 0);
 
                     ctx.restore();
@@ -34270,7 +34320,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 var ctx = canvas.getContext("2d");
                 var pixel_ratio = window.devicePixelRatio;
 
-                width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 400);
+                width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 800);
                 height = width;
 
                 canvas.width = width * pixel_ratio;
@@ -34320,6 +34370,11 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
                 }
 
+                if (self.audioEnabled && self.spinAudio) {
+                    self.spinAudio.currentTime = 0;
+                    self.spinAudio.play();
+                }
+
                 var animation_start = moment();
                 var animation_interval = setInterval(function() {
                     var time = moment().diff(animation_start);
@@ -34336,6 +34391,10 @@ var selected_link = selectedElement.get("link");
 self.showResultPopup(selected_label, selected_color, selected_link);
                     after();
                 }, self.animation_duration);
+            },
+
+            toggleAudio: function() {
+                this.audioEnabled = !this.audioEnabled;
             },
 
             showResultPopup: function(label, color, link) {
@@ -34409,21 +34468,22 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
 
     var App = Backbone.Router.extend({
         routes: {
-            "wheel/*options": "wheel"
+            "": "wheel"
         },
 
         wheel: function(options) {
-            options = decodeURIComponent(options || "");
-
             var wheel_config = {};
-            options.split(';').forEach(function(el) {
-                if (!el) return;
-                var idx = el.indexOf(':');
-                if (idx < 0) return;
-                var key = el.substring(0, idx).trim();
-                var value = el.substring(idx + 1).trim();
-                if (key) wheel_config[key] = value;
-            });
+            if (options) {
+                options = decodeURIComponent(options);
+                options.split(';').forEach(function(el) {
+                    if (!el) return;
+                    var idx = el.indexOf(':');
+                    if (idx < 0) return;
+                    var key = el.substring(0, idx).trim();
+                    var value = el.substring(idx + 1).trim();
+                    if (key) wheel_config[key] = value;
+                });
+            }
 
             var rng = Math.random;
             if (wheel_config.random === "date") {
