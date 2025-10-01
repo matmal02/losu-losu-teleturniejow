@@ -34475,21 +34475,22 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
 
     var App = Backbone.Router.extend({
         routes: {
-            "wheel/*options": "wheel"
+            "": "wheel"
         },
 
         wheel: function(options) {
-            options = decodeURIComponent(options || "");
-
             var wheel_config = {};
-            options.split(';').forEach(function(el) {
-                if (!el) return;
-                var idx = el.indexOf(':');
-                if (idx < 0) return;
-                var key = el.substring(0, idx).trim();
-                var value = el.substring(idx + 1).trim();
-                if (key) wheel_config[key] = value;
-            });
+            if (options) {
+                options = decodeURIComponent(options);
+                options.split(';').forEach(function(el) {
+                    if (!el) return;
+                    var idx = el.indexOf(':');
+                    if (idx < 0) return;
+                    var key = el.substring(0, idx).trim();
+                    var value = el.substring(idx + 1).trim();
+                    if (key) wheel_config[key] = value;
+                });
+            }
 
             var rng = Math.random;
             if (wheel_config.random === "date") {
