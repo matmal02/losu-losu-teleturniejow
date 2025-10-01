@@ -30,7 +30,7 @@
 		function(Backbone, App) {
 			var app = new App();
 			app.route('', 'init', function() {
-				app.navigate("", {trigger: true});
+				app.navigate("wheel/sheet:losulosu", {trigger: true});
 			});
 			Backbone.history.start({pushState: true, root: "/losu-losu-teleturniejow/"});	
 		}
