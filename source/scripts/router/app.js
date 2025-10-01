@@ -3,13 +3,14 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
 
     var App = Backbone.Router.extend({
         routes: {
-            "": "wheel"
+            "wheel/*options": "wheel"
         },
 
         wheel: function(options) {
+            options = decodeURIComponent(options || "");
             var wheel_config = {};
-            if (options) {
-                options = decodeURIComponent(options);
+            
+                
                 options.split(';').forEach(function(el) {
                     if (!el) return;
                     var idx = el.indexOf(':');
@@ -18,7 +19,7 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
                     var value = el.substring(idx + 1).trim();
                     if (key) wheel_config[key] = value;
                 });
-            }
+
 
             var rng = Math.random;
             if (wheel_config.random === "date") {
