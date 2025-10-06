@@ -34199,7 +34199,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
     const volumeSlider = $("<input>")
         .attr({ type: "range", min: 0, max: 1, step: 0.01, value: this.spinAudio.volume })
         .attr("id", "wheel-audio-volume")
-        .css({ verticalAlign: "middle" });
+        .css({ verticalAlign: "middle", padding: "8px 12px", marginRight: "10px" });
     
     container.append(toggleBtn, volumeSlider, syncBtn);
     this.$el.append(container);
