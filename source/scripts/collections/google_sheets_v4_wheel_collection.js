@@ -6,7 +6,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
             model: WheelElement,
 
             initialize: function(models, options) {
-                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:F?key=' + options.api_key;
+                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:G?key=' + options.api_key;
                 this.syncEnabled = options.syncEnabled !== false;
             },
 
