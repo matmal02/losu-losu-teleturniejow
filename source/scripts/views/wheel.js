@@ -40,6 +40,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                 this.spinAudio.loop = false;
                 this.spinAudio.volume = 1;
                 this.audioEnabled = true;
+                this.syncEnabled = true;
 
                 if ($("#wheel-audio-toggle").length === 0) {
     const container = $("<div>").css({ "text-align": "center", "margin-top": "10px" });
@@ -88,7 +89,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
         $(this).text(toggleBtnText);
     });
 
-    syncBtn.on("input", function () {
+    syncBtn.on("click", function () {
         self.syncEnabled = !self.syncEnabled;
         self.collection.syncEnabled = self.syncEnabled;
         const toggleBtnText = self.syncEnabled ? "Sync: On" : "Sync: Off";
