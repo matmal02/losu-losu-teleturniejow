@@ -34184,7 +34184,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
 
     const syncBtn = $("<button>")
     .attr("id", "wheel-sync-toggle")
-    .text("Sync: On")
+    .text("Tryb streamowy: On")
     .css({
         padding: "8px 12px",
         fontSize: "14px",
