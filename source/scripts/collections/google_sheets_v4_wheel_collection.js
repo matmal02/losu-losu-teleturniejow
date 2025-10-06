@@ -18,11 +18,9 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                     var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
                     var link = element[5];
+                    var watched = element[6];
 
-                    if (this.syncEnabled) {
-                        var watched = element[6];
-                    }
-                    if (this.syncEnabled && watched == "TRUE") return;
+                    if (this.syncEnabled && watched === "TRUE") return;
 
                     if (fitness > 0) {
                         models.push({

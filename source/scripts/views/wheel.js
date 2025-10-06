@@ -90,11 +90,11 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
 
     syncBtn.on("input", function () {
         self.syncEnabled = !self.syncEnabled;
-        self.collection.syncEnabled = self.syncEnabled
+        self.collection.syncEnabled = self.syncEnabled;
         const toggleBtnText = self.syncEnabled ? "Sync: On" : "Sync: Off";
         $(this).text(toggleBtnText);
         self.populate();
-    })
+    });
     
     volumeSlider.on("input", function() {
         const vol = parseFloat($(this).val());
