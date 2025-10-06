@@ -92,7 +92,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
     syncBtn.on("click", function () {
         self.syncEnabled = !self.syncEnabled;
         self.collection.syncEnabled = self.syncEnabled;
-        const toggleBtnText = self.syncEnabled ? "Sync: On" : "Sync: Off";
+        const toggleBtnText = self.syncEnabled ? "Tryb streamowy: On" : "Tryb streamowy: Off";
         $(this).text(toggleBtnText);
         self.populate();
     });
