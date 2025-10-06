@@ -34121,7 +34121,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
 
         return GoogleSheetsV4WheelCollection;
     });
-const { sync } = require("backbone");
+//const { sync } = require("backbone");
 
 define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
     function($, moment, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {
