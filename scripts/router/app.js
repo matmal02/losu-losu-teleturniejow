@@ -34091,6 +34091,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
 
             initialize: function(models, options) {
                 this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:F?key=' + options.api_key;
+                this.syncEnabled = options.syncEnabled !== false;
             },
 
             parse: function(response, options) {
@@ -34101,6 +34102,10 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                     var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
                     var link = element[5];
+                    var watched = element[6];
+
+                    if (this.syncEnabled && watched === "TRUE") return;
+
                     if (fitness > 0) {
                         models.push({
                             label: label,
@@ -34116,6 +34121,8 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
 
         return GoogleSheetsV4WheelCollection;
     });
+const { sync } = require("backbone");
+
 define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
     function($, moment, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {
 
@@ -34127,6 +34134,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
             populate: function() {
                 this.render_info("Loading data...");
                 var self = this;
+                this.collection.syncEnabled = this.syncEnabled;
                 this.collection.fetch({
                     reset: true,
                     error: function() {
@@ -34172,13 +34180,27 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
             cursor: "pointer",
             marginRight: "10px"
         });
+
+    const syncBtn = $("<button>")
+    .attr("id", "wheel-sync-toggle")
+    .text("Sync: On")
+    .css({
+        padding: "8px 12px",
+        fontSize: "14px",
+        borderRadius: "4px",
+        border: "none",
+        background: "#444",
+        color: "#fff",
+        cursor: "pointer",
+        marginRight: "10px"
+    });
     
     const volumeSlider = $("<input>")
         .attr({ type: "range", min: 0, max: 1, step: 0.01, value: this.spinAudio.volume })
         .attr("id", "wheel-audio-volume")
         .css({ verticalAlign: "middle" });
     
-    container.append(toggleBtn, volumeSlider);
+    container.append(toggleBtn, volumeSlider, syncBtn);
     this.$el.append(container);
 
     const self = this;
@@ -34187,6 +34209,14 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
         const vol = self.audioEnabled ? self.spinAudio.volume : 0;
         const toggleBtnText = vol === 0 ? "Audio: Off" : "Audio: On";
         $(this).text(toggleBtnText);
+    });
+
+    syncBtn.on("input", function () {
+        self.syncEnabled = !self.syncEnabled;
+        self.collection.syncEnabled = self.syncEnabled;
+        const toggleBtnText = self.syncEnabled ? "Sync: On" : "Sync: Off";
+        $(this).text(toggleBtnText);
+        self.populate();
     });
     
     volumeSlider.on("input", function() {
