@@ -21,7 +21,8 @@
 		<div class="canvas-label">Kliknij koło, by zakręcić</div>
 	</div>
 	<footer>
-		<div>Created by <a href="https://github.com/matmal02">matmal02</a>. Based on <a href="https://github.com/hoesler/wheel-of-fortune">wheel-of-fortune</a> app by <a href="https://github.com/hoesler">Christoph Hoesler</a>.</div>
+		<div>Created by <a href="https://github.com/matmal02">matmal02</a>. Based on <a href="https://github.com/hoesler/wheel-of-fortune">wheel-of-fortune</a> app by <a href="https://github.com/hoesler">Christoph Hoesler</a>.</div><br>
+		<a href="https://suppi.pl/matmal02" target="_blank"><img width="165" src="https://suppi.pl/api/widget/button.svg?fill=6457FD&textColor=ffffff"/></a>
 	</footer>
 </div>
 </body>
