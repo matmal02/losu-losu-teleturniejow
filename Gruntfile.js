@@ -46,7 +46,7 @@ module.exports = function(grunt) {
                 options: {
                     data: {
                         appTitle: 'Losu losu',
-                        baseUrl: '/losu-losu-teleturniejow/',
+                        baseUrl: process.env.LOCAL ? '/' : '/losu-losu-teleturniejow/',
                         initialRoute: 'wheel/sheet:losulosu'
                     }
                 },

@@ -7,6 +7,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
 
             initialize: function(models, options) {
                 this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:F?key=' + options.api_key;
+                this.syncEnabled = options.syncEnabled !== false;
             },
 
             parse: function(response, options) {
@@ -17,6 +18,12 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                     var label = element[0] + " (" + element[1] + ")";
                     var fitness = 10;
                     var link = element[5];
+
+                    if (this.syncEnabled) {
+                        var watched = element[6];
+                    }
+                    if (this.syncEnabled && watched == "TRUE") return;
+
                     if (fitness > 0) {
                         models.push({
                             label: label,
