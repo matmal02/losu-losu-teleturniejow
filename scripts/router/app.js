@@ -34158,8 +34158,8 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
-                var rand = Math.floor(Math.random() * 200) + 1;
-                if (rand >= 150){
+                var rand = Math.floor(Math.random() * 1000) + 1;
+                if (rand > 150 && rand <= 200){
                     this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin2.mp3");
                 }
                 else
