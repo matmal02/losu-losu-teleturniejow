@@ -35,7 +35,14 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                 this.reset();
                 this.collection.on("reset", this.reset, this);
 
-                this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin.mp3");
+                var rand = Math.floor(Math.random * 200) + 1
+                if (r >= 150){
+                    this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin2.mp3");
+                }
+                else
+                {
+                    this.spinAudio = new Audio("/losu-losu-teleturniejow/sounds/spin.mp3");
+                }
                 this.spinAudio.preload = "auto";
                 this.spinAudio.loop = false;
                 this.spinAudio.volume = 1;
