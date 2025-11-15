@@ -22,7 +22,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
 
                     const d = new Date();
                     const years = element[1].split("-");
-                    years.sort((a,b) => b-a)
+                    years.sort((a,b) => b-a);
                     const year = years[0];
 
                     if (this.syncEnabled && watched === "TRUE" && d.getFullYear() - year < "7") return;
