@@ -34104,7 +34104,11 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                     var link = element[5];
                     var watched = element[6];
 
-                    if (this.syncEnabled && watched === "TRUE") return;
+                    const d = new Date();
+                    const years = element[1].split("-");
+                    const year = Math.max(...years);
+
+                    if (this.syncEnabled && watched === "TRUE" && d.getFullYear() - year < "7") return;
 
                     if (fitness > 0) {
                         models.push({
