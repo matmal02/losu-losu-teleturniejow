@@ -34473,7 +34473,7 @@ self.showResultPopup(selected_label, selected_color, selected_link);
 
             function showCopiedTooltip() {
     const tooltip = $("<div>")
-        .text("Copied!")
+        .text("Skopiowano link")
         .css({
             position: "fixed",
             bottom: "20px",
@@ -34503,12 +34503,15 @@ self.showResultPopup(selected_label, selected_color, selected_link);
         setTimeout(() => tooltip.remove(), 300); // remove after transition
     }, 1000);
 }
+        var checkbox = document.getElementById('copyCheckbox');
 
             popup.off("click");
             popup.on("click", function(){
+                if (checkbox.checked) {
                 navigator.clipboard.writeText(link).then(() => {
             showCopiedTooltip();
         }).catch(err => console.error("Copy failed", err));
+    }
                 popup.css({ transform:"translate(-50%,-50%) scale(0.5)", opacity:0 });
                 setTimeout(()=>popup.css({ display:"none" }), 300);
             });
