@@ -375,7 +375,7 @@ self.showResultPopup(selected_label, selected_color, selected_link);
         setTimeout(() => tooltip.remove(), 300); // remove after transition
     }, 1000);
 }
-        var checkbox = document.getElementById('copyCheckbox')
+        var checkbox = document.getElementById('copyCheckbox');
 
             popup.off("click");
             popup.on("click", function(){
