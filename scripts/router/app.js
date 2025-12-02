@@ -34473,6 +34473,39 @@ self.showResultPopup(selected_label, selected_color, selected_link);
 
             popup.off("click");
             popup.on("click", function(){
+                navigator.clipboard.writeText(link).then(() => {
+            // Create tooltip
+            const tooltip = $("<div>")
+                .text("Skopiowano link")
+                .css({
+                    position: "absolute",
+                    top: "-30px", // above the popup
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "#333",
+                    color: "#fff",
+                    padding: "4px 8px",
+                    borderRadius: "4px",
+                    fontSize: "12px",
+                    opacity: 0,
+                    pointerEvents: "none",
+                    zIndex: 2000,
+                    transition: "opacity 0.3s ease, transform 0.3s ease"
+                });
+
+            popup.append(tooltip);
+
+            // Animate tooltip in
+            setTimeout(() => {
+                tooltip.css({ opacity: 1, transform: "translateX(-50%) translateY(-10px)" });
+            }, 10);
+
+            // Fade out after 1 second
+            setTimeout(() => {
+                tooltip.css({ opacity: 0, transform: "translateX(-50%) translateY(-20px)" });
+                setTimeout(() => tooltip.remove(), 300); // remove after transition
+            }, 1000);
+        }).catch(err => console.error("Copy failed", err));
                 popup.css({ transform:"translate(-50%,-50%) scale(0.5)", opacity:0 });
                 setTimeout(()=>popup.css({ display:"none" }), 300);
             });
