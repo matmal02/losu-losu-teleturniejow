@@ -14,6 +14,10 @@
 	<header>
 		<h1>Losu losu losu</h1>
 	</header>
+	<div>
+		<input type="checkbox" id="copyCheckbox">
+		<label for="copyCheckbox" style="color: white; font-family: 'sans-serif', sans-serif;">Kopiuj linki automatycznie</label>
+	</div>
 	<div id="wheel">
 		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
