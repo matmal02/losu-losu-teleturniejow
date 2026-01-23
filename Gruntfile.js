@@ -1,5 +1,10 @@
 module.exports = function(grunt) {
+    require('dotenv').config();
     const sass = require('sass');
+
+    const Debug = process.env.DEBUG === 'True' || process.env.NODE_ENV === 'development';
+    console.log('DEBUG env var:', process.env.DEBUG);
+    console.log('Debug flag:', Debug);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -17,13 +22,18 @@ module.exports = function(grunt) {
                 appDir: "source",
                 baseUrl: ".",
                 dir: "build",
-                removeCombined: true,
+                removeCombined: false,
+                findNestedDependencies: true,
                 modules: [{
                     name: "scripts/router/app",
-                    include: "requireLib"
+                    include: ["requireLib"]
                 }],
                 shim: {
-                    palette: { exports: 'palette' }
+                    palette: { exports: 'palette' },
+                    underscore: { exports: '_' },
+                    backbone: { deps: ['underscore', 'jquery'], exports: 'Backbone' },
+                    chance: { exports: 'Chance' },
+                    moment: { exports: 'moment' }
                 },
                 paths: {
                     requireLib: '../node_modules/requirejs/require',
@@ -46,7 +56,7 @@ module.exports = function(grunt) {
                 options: {
                     data: {
                         appTitle: 'Losu losu',
-                        baseUrl: '/losu-losu-teleturniejow/',
+                        baseUrl: Debug ? '/' : '/losu-losu-teleturniejow/',
                         initialRoute: 'wheel/sheet:losulosu'
                     }
                 },
@@ -105,6 +115,43 @@ module.exports = function(grunt) {
         // QUnit tests
         qunit: {
             all: ['test/**/*.html']
+        },
+
+        // Development server
+        connect: {
+            options: {
+                middleware: function(connect, options, middlewares) {
+                    const rewrite = require('connect-modrewrite');
+                    const serveStatic = require('serve-static');
+                    
+                    var middleware = [];
+
+                    // 1. mod-rewrite behavior
+                    var rules = [
+                        '!\\.html|\\.js|\\.css|\\.svg|\\.jp(e?)g|\\.png|\\.gif$ /index.html'
+                    ];
+                    middleware.push(rewrite(rules));
+
+                    // 2. original middleware behavior
+                    var base = options.base;
+                    if (!Array.isArray(base)) {
+                        base = [base];
+                    }
+                    base.forEach(function(path) {
+                        middleware.push(serveStatic(path));
+                    });
+
+                    return middleware;
+                }
+            },
+            build: {
+                options: {
+                    hostname: 'localhost',
+                    port: 7878,
+                    base: 'build',
+                    keepalive: true
+                }
+            }
         }
     });
 
@@ -116,6 +163,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    
 
     // Define tasks
     grunt.registerTask('lint', ['jshint:source']);
@@ -123,5 +172,11 @@ module.exports = function(grunt) {
     grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'sass', 'copy:sounds', 'copy:html404', 'copy:assets']);
     grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'sass', 'cssmin:all', 'copy:sounds', 'copy:html404', 'copy:assets']);
     grunt.registerTask('build', ['build:development']);
+    
+    // Conditionally register server task only for local development
+    if (Debug) {
+        grunt.registerTask('server', ['connect:build:keepalive']);
+    }
+    
     grunt.registerTask('default', ['build']);
 };
