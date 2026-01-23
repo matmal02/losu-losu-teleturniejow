@@ -62,6 +62,16 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
                 color_brewer: color_brewer
             });
 
+            // Store wheel instance globally for access from HTML onclick handlers
+            window.currentWheelInstance = wheel;
+            window.showUpdatePopupGlobal = function() {
+                console.log("showUpdatePopupGlobal called, wheel instance:", window.currentWheelInstance);
+                if (window.currentWheelInstance) {
+                    console.log("Calling showUpdatePopup...");
+                    window.currentWheelInstance.showUpdatePopup();
+                }
+            };
+
             wheel.populate();
         }
     });
