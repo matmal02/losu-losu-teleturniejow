@@ -1,0 +1,1 @@
+define(["underscore"],function(e){return Math.TWO_PI=2*Math.PI,Math.sum=function(e,t){return e+t},{roulette_wheel_selection:function(t,n){n=void 0!==n?n:Math.random;var r=n()*e.reduce(t,Math.sum,0),u=0,o=-1;for(i=0;i<t.length;i++)if(u+=t[i],r<u){o=i;break}return o}}});

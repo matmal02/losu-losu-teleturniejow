@@ -13,7 +13,11 @@
 <div id="content">
 	<header>
 		<h1>Losu losu losu</h1>
+		
 	</header>
+	<div>
+		<img id="update-image" src="https://zapodaj.net/images/19dadbde77802.gif" style="width: 35%; height: 35%; cursor: pointer;" onclick="window.showUpdatePopupGlobal()">
+	</div>
 	<div>
 		<input type="checkbox" id="copyCheckbox">
 		<label for="copyCheckbox" style="color: white; font-family: 'sans-serif', sans-serif;">Kopiuj linki automatycznie</label>

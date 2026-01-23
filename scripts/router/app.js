@@ -34090,12 +34090,16 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
             model: WheelElement,
 
             initialize: function(models, options) {
-                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:G?key=' + options.api_key;
+                this.url = 'https://sheets.googleapis.com/v4/spreadsheets/' + options.spreadsheet_id + '/values/TYLKO Całe Odcinki!A2:H?key=' + options.api_key;
                 this.syncEnabled = options.syncEnabled !== false;
+                this.selectedTypes = options.selectedTypes || [];
+                this.allTypes = [];
+                this.allElements = []; // Store all elements before filtering
             },
 
             parse: function(response, options) {
                 var models = [];
+                this.allElements = [];
 
                 var elements = new Chance(33).shuffle(response.values); // fixed shuffle
                 _.each(elements, function(element) {
@@ -34103,30 +34107,63 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                     var fitness = 10;
                     var link = element[5];
                     var watched = element[6];
+                    var type_array = element[7] ? element[7].split(",").map(function(t) { return t.trim(); }) : [];
 
                     const d = new Date();
                     const years = element[1].split("-");
                     years.sort((a,b) => b-a);
                     const year = years[0];
 
+                    // Track all available types
+                    _.each(type_array, function(type) {
+                        if (type && !_.contains(this.allTypes, type)) {
+                            this.allTypes.push(type);
+                        }
+                    }, this);
+
+                    // Store all elements (before filtering)
+                    if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7"))) {
+                        this.allElements.push({
+                            label: label,
+                            fitness: fitness,
+                            link: link,
+                            types: type_array
+                        });
+                    }
+
                     if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7")) return;
+                    
+                    // Filter by selected types - exclude items that match selected types
+                    if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
 
                     if (fitness > 0) {
                         models.push({
                             label: label,
                             fitness: fitness,
-                            link: link
+                            link: link,
+                            types: type_array
                         });
                     }
                 }, this);
 
+                // Sort allTypes for consistent display
+                this.allTypes.sort();
+
                 return models;
+            },
+
+            getAvailableTypes: function() {
+                return this.allTypes;
+            },
+
+            filterByTypes: function(selectedTypes) {
+                this.selectedTypes = selectedTypes;
+                this.fetch({ reset: true });
             }
         });
 
         return GoogleSheetsV4WheelCollection;
     });
-//const { sync } = require("backbone");
 
 define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
     function($, moment, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {
@@ -34144,6 +34181,12 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     reset: true,
                     error: function() {
                         self.render_info("Error: Failed to load data");
+                    },
+                    success: function() {
+                        if (!self.filtersRendered) {
+                            self.renderTypeFilters();
+                            self.filtersRendered = true;
+                        }
                     }
                 });
             },
@@ -34156,6 +34199,8 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     return _.map(new Array(number), _.constant("#000000"));
                 };
                 this.fps = typeof options.fps !== 'undefined' ? options.fps : 60;
+                this.selectedTypes = [];
+                this.filtersRendered = false;
 
                 this.$wheel_canvas = this.$el.find("canvas").first();
                 this.wheel_canvas = this.$wheel_canvas.get(0);
@@ -34266,6 +34311,297 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
     `);
 }
 
+            },
+
+            renderTypeFilters: function() {
+                var self = this;
+                var types = this.collection.getAvailableTypes();
+
+                if (types.length === 0) {
+                    return; // No types to filter
+                }
+
+                // Remove existing filter container if present
+                $("#wheel-type-filters").remove();
+
+                const filterContainer = $("<div>")
+                    .attr("id", "wheel-type-filters")
+                    .css({
+                        "margin-top": "15px",
+                        "padding": "10px",
+                        "background": "#171811",
+                        "border-radius": "4px",
+                        "border-style": "solid",
+                        "border-color": "#f5f5f5",
+                        "text-align": "left",
+                        "max-width": "600px",
+                        "margin-left": "auto",
+                        "margin-right": "auto",
+                        "position": "relative"
+                    });
+
+                const filterLabelContainer = $("<div>")
+                    .css({
+                        "display": "flex",
+                        "justify-content": "space-between",
+                        "align-items": "center",
+                        "margin-bottom": "10px"
+                    });
+
+                const filterLabel = $("<label>")
+                    .text("Wybierz kategorie teleturniejów, które chcesz mieć na kole")
+                    .css({
+                        "font-weight": "bold",
+                        "color": "#f5f5f5"
+                    });
+
+                const helpText = $("<span>")
+                    .text("Legenda")
+                    .css({
+                        "cursor": "pointer",
+                        "color": "#f5f5f5",
+                        "font-weight": "bold",
+                        
+                    })
+                    .on("click", function() {
+                        self.showFilterHelpPopup();
+                    });
+
+                filterLabelContainer.append(filterLabel, helpText);
+                filterContainer.append(filterLabelContainer);
+
+                const checkboxContainer = $("<div>")
+                    .css({
+                        "display": "flex",
+                        "flex-wrap": "wrap",
+                        "gap": "10px",
+                    });
+
+                _.each(types, function(type) {
+                    const checkboxWrapper = $("<label>")
+                        .css({
+                            "display": "flex",
+                            "align-items": "center",
+                            "cursor": "pointer",
+                            "user-select": "none",
+                            "margin-top": "5px",
+                            "margin-bottom": "5px"
+                        });
+
+                    const checkbox = $("<input>")
+                        .attr({
+                            type: "checkbox",
+                            "class": "wheel-type-checkbox",
+                            value: type
+                        })
+                        .prop("checked", true)
+                        .css({
+                            "margin-right": "6px",
+                            "cursor": "pointer"
+                        })
+                        .on("change", function() {
+                            self.onTypeFilterChange();
+                        });
+
+                    const label = $("<span>")
+                        .text(type)
+                        .css({
+                            "font-size": "14px",
+                            "font-weight": "bold",
+                            "color": "#f5f5f5"
+                        });
+
+                    checkboxWrapper.append(checkbox, label);
+                    checkboxContainer.append(checkboxWrapper);
+                });
+
+                filterContainer.append(checkboxContainer);
+
+                // Find the audio/sync button container and insert filters after it
+                var buttonContainer = $("#wheel-audio-toggle").closest("div");
+                if (buttonContainer.length > 0) {
+                    buttonContainer.after(filterContainer);
+                } else {
+                    this.$el.append(filterContainer);
+                }
+            },
+
+            showUpdatePopup: function() {
+                $("#wheel-update-popup").remove();
+
+                const popup = $("<div>")
+                    .attr("id", "wheel-update-popup")
+                    .css({
+                        "position": "fixed",
+                        "top": "50%",
+                        "left": "50%",
+                        "background": "#333",
+                        "color": "#fff",
+                        "border": "2px solid #000",
+                        "padding": "20px",
+                        "font-size": "18px",
+                        "z-index": "1000",
+                        "text-align": "center",
+                        "border-radius": "8px",
+                        "transition": "transform 0.3s ease, opacity 0.3s ease",
+                        "transform": "translate(-50%,-50%) scale(0.5)",
+                        "opacity": "0"
+                    });
+
+                const headerContainer = $("<div>")
+                    .css({
+                        "display": "flex",
+                        "justify-content": "space-between",
+                        "align-items": "flex-start",
+                        "margin-bottom": "10px"
+                    });
+
+                const closeBtn = $("<button>")
+                    .text("×")
+                    .css({
+                        "background": "none",
+                        "border": "none",
+                        "color": "#f5f5f5",
+                        "font-size": "24px",
+                        "cursor": "pointer",
+                        "padding": "0",
+                        "width": "30px",
+                        "height": "30px",
+                        "display": "flex",
+                        "align-items": "center",
+                        "justify-content": "center"
+                    })
+                    .on("click", function() {
+                        popup.css({ transform: "translate(-50%,-50%) scale(0.5)", opacity: 0 });
+                        setTimeout(() => popup.remove(), 300);
+                    });
+
+                headerContainer.append(closeBtn);
+                popup.append(headerContainer);
+
+                const content = $("<div>")
+                    .css({
+                        "margin": "0",
+                        "display": "block",
+                        "text-align": "center"
+                    })
+                    .html("<h1> Wielki update losu losu teleturniejów! </h1>" +
+                        "<p> Od teraz możesz wybrać jakie teleturnieje chcesz losować! </p>" +
+                        "<p> Kliknij na 'Legenda' obok filtrów, by dowiedzieć się więcej </p>" +
+                        "<p> Do tego po losowaniu wraz z nazwą i linkiem do teleturnieju wyświetli się też jego kategoria, byś wiedział czego się spodziewać </p>" +
+                        "<p> Jeśli podoba ci się moja praca, zapraszam do wsparcia mnie na Suppi, bym mógł się dalej rozwijać </p>" +
+                        "<p><a href=\"https://suppi.pl/matmal02\" target=\"_blank\"><img width=\"165\" src=\"https://suppi.pl/api/widget/button.svg?fill=6457FD&amp;textColor=ffffff\"></a></p>"+
+                        "<p style='font-size: 10px;'> pls jestem biedny student i do tego jestem taki malutki 👉👈 </p>" +
+                        "<p> Miłego losowania!</p>");
+
+                popup.append(content);
+                $("body").append(popup);
+
+                // Animate in
+                setTimeout(() => { 
+                    popup.css({ transform: "translate(-50%,-50%) scale(1)", opacity: 1 }); 
+                }, 10);
+            },
+
+            showFilterHelpPopup: function() {
+                // Remove existing help popup if present
+                $("#wheel-filter-help-popup").remove();
+
+                const helpPopup = $("<div>")
+                    .attr("id", "wheel-filter-help-popup")
+                    .css({
+                        "position": "fixed",
+                        "top": "50%",
+                        "left": "50%",
+                        "background": "#333",
+                        "color": "#fff",
+                        "border": "2px solid #000",
+                        "padding": "20px",
+                        "font-size": "18px",
+                        "z-index": "1000",
+                        "text-align": "center",
+                        "border-radius": "8px",
+                        "transition": "transform 0.3s ease, opacity 0.3s ease",
+                        "transform": "translate(-50%,-50%) scale(0.5)",
+                        "opacity": "0"
+                    });
+
+                const headerContainer = $("<div>")
+                    .css({
+                        "display": "flex",
+                        "justify-content": "space-between",
+                        "align-items": "flex-start",
+                        "margin-bottom": "10px"
+                    });
+
+                const title = $("<div>")
+                    .text("Legenda")
+                    .css({
+                        "font-weight": "bold",
+                        "font-size": "16px"
+                    });
+
+                const closeBtn = $("<button>")
+                    .text("×")
+                    .css({
+                        "background": "none",
+                        "border": "none",
+                        "color": "#f5f5f5",
+                        "font-size": "24px",
+                        "cursor": "pointer",
+                        "padding": "0",
+                        "width": "30px",
+                        "height": "30px",
+                        "display": "flex",
+                        "align-items": "center",
+                        "justify-content": "center"
+                    })
+                    .on("click", function() {
+                        helpPopup.css({ transform: "translate(-50%,-50%) scale(0.5)", opacity: 0 });
+                        setTimeout(() => helpPopup.remove(), 300);
+                    });
+
+                headerContainer.append(title, closeBtn);
+                helpPopup.append(headerContainer);
+
+                const content = $("<p>")
+                    .css({
+                        "margin": "0",
+                        "display": "flex",
+                        "flex-wrap": "wrap",
+                    }).innerHtml = "<p><b>Klasyczny</b> - teleturniej typu \"jaki jest, każdy widzi i nikt nie będzie tego, że jest teleturniejem, kwestionował\"</p>" +
+                        "<p><b>Muzyczny</b> - teleturnieje, do których oglądania końmi Bartka nie zaciągniecie</p>" +
+                        "<p><b>Interaktywny</b> - teleturniej typu \"widz dzwoni i gra w tetrisa czy co innego\"</p>" +
+                        "<p><b>Call TV</b> - wyjeba typu \"ty się nie dodzwonisz, debil co powie 'Pokaż dupę' już tak, a osoba prowadząca się zastanawia, czemu nikt nie potrafi odpowiedzieć ile to jest 2+2\"</p>" +
+                        "<p><b>Turniej w telewizji</b> - teleturniej w całkiem dosłownym tego słowa znaczeniu, czyli turnieje typu Dzień Sportu w szkole pokazywane w telewizji</p>" +
+                        "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, ale bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a za granicą mówią, że to jest teleturniej\"</p>" +
+                        "<p><b>Reality show</b> - reality show z elementami teleturnieju, ale bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a za granicą mówią, że to jest teleturniej\"</p>" +
+                        "<p><b>Program randkowy </b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
+                        "<p><b>Inny</b> - teleturniej, który nie pasuje do żadnej z powyższych kategorii, a jest ich za mało, by stworzyć nową :/</p>";
+
+                helpPopup.append(content);
+                $("body").append(helpPopup);
+
+                // Animate in
+                setTimeout(() => { 
+                    helpPopup.css({ transform: "translate(-50%,-50%) scale(1)", opacity: 1 }); 
+                }, 10);
+            },
+
+            onTypeFilterChange: function() {
+                var self = this;
+                var selectedTypes = [];
+
+                $(".wheel-type-checkbox:checked").each(function() {
+                    selectedTypes.push($(this).val());
+                });
+
+                this.selectedTypes = selectedTypes;
+                this.collection.selectedTypes = selectedTypes;
+
+                console.log("Selected types:", selectedTypes);
+                
+                self.populate();
             },
 
             reset: function(collection, options) {
@@ -34431,7 +34767,8 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     var selected_label = selectedElement.get("label");
 var selected_color = self.colors[index]; // slice color
 var selected_link = selectedElement.get("link");
-self.showResultPopup(selected_label, selected_color, selected_link);
+var selected_types = selectedElement.get("types");
+self.showResultPopup(selected_label, selected_color, selected_link, selected_types);
                     after();
                 }, self.animation_duration);
             },
@@ -34440,9 +34777,15 @@ self.showResultPopup(selected_label, selected_color, selected_link);
                 this.audioEnabled = !this.audioEnabled;
             },
 
-            showResultPopup: function(label, color, link) {
+            showResultPopup: function(label, color, link, types) {
             var popup = $("#wheel-popup");
             popup.empty();
+
+            if (types && types.length > 0) {
+                var typeText = types.length === 1 ? types[0] : types.join(", ");
+                var typesDiv = $("<div>").text(typeText).css({ "margin-bottom": "10px", "font-size":"15px" });
+                popup.append(typesDiv);
+            }
 
             var labelDiv = $("<div>").text(label).css({ "margin-bottom": "10px", "font-weight":"bold" });
             popup.append(labelDiv);
@@ -34615,6 +34958,16 @@ function(Backbone, _, palette, Wheel, GoogleSheetsV4WheelCollection, sheetConfig
                 random: rng,
                 color_brewer: color_brewer
             });
+
+            // Store wheel instance globally for access from HTML onclick handlers
+            window.currentWheelInstance = wheel;
+            window.showUpdatePopupGlobal = function() {
+                console.log("showUpdatePopupGlobal called, wheel instance:", window.currentWheelInstance);
+                if (window.currentWheelInstance) {
+                    console.log("Calling showUpdatePopup...");
+                    window.currentWheelInstance.showUpdatePopup();
+                }
+            };
 
             wheel.populate();
         }
