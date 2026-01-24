@@ -34872,13 +34872,24 @@ self.showResultPopup(selected_label, selected_color, selected_link, selected_typ
 
             spin: function() {
                 var el = this.$el.find("canvas").first();
+                
                 if (!el.hasClass("clickable")) {
                     return;
                 }
                 el.removeClass("clickable");
 
+                var checkboxes = document.getElementsByClassName('wheel-type-checkbox');
+
+                for (let i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].disabled = true;
+                }
+
+
                 this.render_spin(function() {
                     el.addClass("clickable");
+                    for (let i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].disabled = false;
+                    }
                 });
             }
         });
