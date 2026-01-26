@@ -34575,8 +34575,8 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "<p><b>Call TV</b> - wyjeba typu \"ty się nie dodzwonisz, debil co powie 'Pokaż dupę' już tak, a osoba prowadząca się zastanawia, czemu nikt nie potrafi odpowiedzieć ile to jest 2+2\"</p>" +
                         "<p><b>Kulinarny</b> - teleturniej typu gotowanie (Tak, też nie wierzę, że coś takiego istnieje)</p>" +
                         "<p><b>Turniej w telewizji</b> - teleturniej w całkiem dosłownym tego słowa znaczeniu, czyli turnieje typu Dzień Sportu w szkole pokazywane w telewizji</p>" +
-                        "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, ale bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni mówią, że to jest teleturniej\"</p>" +
-                        "<p><b>Reality show</b> - reality show z elementami teleturnieju, ale bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni mówią, że to jest teleturniej\"</p>" +
+                        "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
+                        "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
                         "<p><b>Inny</b> - teleturniej, który nie pasuje do żadnej z powyższych kategorii, a jest ich za mało, by stworzyć nową :/</p>";
 
