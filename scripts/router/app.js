@@ -34489,6 +34489,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "<p> Od teraz możesz wybrać jakie teleturnieje chcesz losować! </p>" +
                         "<p> Kliknij na 'Legenda' obok filtrów, by dowiedzieć się więcej </p>" +
                         "<p> Do tego po losowaniu wraz z nazwą i linkiem do teleturnieju wyświetli się też jego kategoria, byś wiedział czego się spodziewać </p>" +
+                        "<p> Dodatkowo zmniejszyłem głośność muzyki, by nie waliła po uszach </p>" +
                         "<p> Jeśli podoba ci się moja praca, zapraszam do wsparcia mnie na Suppi, bym mógł się dalej rozwijać </p>" +
                         "<p><a href=\"https://suppi.pl/matmal02\" target=\"_blank\"><img width=\"165\" src=\"https://suppi.pl/api/widget/button.svg?fill=6457FD&amp;textColor=ffffff\"></a></p>"+
                         "<p style='font-size: 10px;'> pls jestem biedny student i do tego jestem taki malutki 👉👈 </p>" +
