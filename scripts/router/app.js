@@ -34487,7 +34487,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                     })
                     .html("<h1> Wielki update losu losu teleturniejów! </h1>" +
                         "<p> Od teraz możesz wybrać jakie teleturnieje chcesz losować! </p>" +
-                        "<p> Kliknij na 'Legenda' obok filtrów, by dowiedzieć się więcej </p>" +
+                        "<p> Kliknij na 'Legenda' obok filtrów (pod kołem), by dowiedzieć się więcej </p>" +
                         "<p> Do tego po losowaniu wraz z nazwą i linkiem do teleturnieju wyświetli się też jego kategoria, byś wiedział czego się spodziewać </p>" +
                         "<p> Dodatkowo zmniejszyłem głośność muzyki, by nie waliła po uszach </p>" +
                         "<p> Jeśli podoba ci się moja praca, zapraszam do wsparcia mnie na Suppi, bym mógł się dalej rozwijać </p>" +
