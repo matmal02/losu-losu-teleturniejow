@@ -407,9 +407,10 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                     }).innerHtml = "<p><b>Klasyczny</b> - teleturniej typu \"jaki jest, każdy widzi i nikt nie będzie tego, że jest teleturniejem, kwestionował\"</p>" +
                         "<p><b>Muzyczny</b> - teleturnieje, do których oglądania końmi Bartka nie zaciągniecie</p>" +
                         "<p><b>Interaktywny</b> - teleturniej typu \"widz dzwoni i gra w tetrisa czy co innego\"</p>" +
-                        "<p><b>Call TV</b> - wyjeba typu \"ty się nie dodzwonisz, debil co powie 'Pokaż dupę' już tak, a osoba prowadząca się zastanawia, czemu nikt nie potrafi odpowiedzieć ile to jest 2+2\"</p>" +
+                        "<p><b>Call TV</b> - wyjeba typu \"ty się nie dodzwonisz i dostaniesz rachunek na ileśtam tysięcy zeta, debil co powie 'Pokaż dupę' już tak, a osoba prowadząca się zastanawia, czemu nikt nie potrafi odpowiedzieć ile to jest 2+2\"</p>" +
                         "<p><b>Kulinarny</b> - teleturniej typu gotowanie (Tak, też nie wierzę, że coś takiego istnieje)</p>" +
                         "<p><b>Turniej w telewizji</b> - teleturniej w całkiem dosłownym tego słowa znaczeniu, czyli turnieje typu Dzień Sportu w szkole pokazywane w telewizji</p>" +
+                        "<p><b>Event</b> - teleturniej w formie jednokrotnego bądź cyklicznego wydarzenia (raz bądź parę razy do roku)</p>" +
                         "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
