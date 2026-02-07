@@ -34580,7 +34580,7 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
-                        "<p><b>Inny</b> - teleturniej, który nie pasuje do żadnej z powyższych kategorii, a jest ich za mało, by stworzyć nową :/</p>";
+                        "<p><b>Inny</b> - teleturniej, który nie pasuje do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są</p>";
 
                 helpPopup.append(content);
                 $("body").append(helpPopup);
