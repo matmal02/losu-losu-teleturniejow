@@ -22360,7 +22360,8 @@ define('scripts/helper/math',["underscore"],
              * @param {Object} random - The random function to use. Must return a value in [0,1).
              */
             roulette_wheel_selection: function(fitness, random) {
-                random = typeof random !== 'undefined' ? random : Math.random;
+                random = typeof random !== 'undefined' ? random : crypto.getRandomValues(new Uint32Array(1))[0] / 0x100000000;
+
 
                 var rand = random() * _.reduce(fitness, Math.sum, 0);
                 var tmp = 0;
