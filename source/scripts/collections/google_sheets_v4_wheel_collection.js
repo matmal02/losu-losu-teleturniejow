@@ -47,7 +47,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                         });
                     }
 
-                    if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7")) return;
+                    if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch"))) return;
                     
                     // Filter by selected types - exclude items that match selected types
                     if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
