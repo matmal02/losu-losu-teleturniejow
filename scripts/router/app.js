@@ -34132,7 +34132,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                         });
                     }
 
-                    if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7")) return;
+                    if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch"))) return;
                     
                     // Filter by selected types - exclude items that match selected types
                     if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
@@ -34486,14 +34486,11 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "display": "block",
                         "text-align": "center"
                     })
-                    .html("<h1> Wielki update losu losu teleturniejów! </h1>" +
-                        "<p> Od teraz możesz wybrać jakie teleturnieje chcesz losować! </p>" +
-                        "<p> Kliknij na 'Legenda' obok filtrów (pod kołem), by dowiedzieć się więcej </p>" +
-                        "<p> Do tego po losowaniu wraz z nazwą i linkiem do teleturnieju wyświetli się też jego kategoria, byś wiedział czego się spodziewać </p>" +
-                        "<p> Dodatkowo zmniejszyłem głośność muzyki, by nie waliła po uszach </p>" +
+                    .html("<h1> Update! </h1>" +
+                        "<p> Tym razem dodałem nową kategorię - Risky Watch (nie powinna się wyświetlać w trybie streamowym) </p>" +
+                        "<p> W skrócie, do tej kategorii będą należeć teleturnieje, których oglądanie na streamie z różnych powodów może być ryzykowne, np. z powodu specyfiki (bardziej nastawione na widzów 18+) bądź wątpliwego w swej legalności sposobu zdobycia. </p>" +
                         "<p> Jeśli podoba ci się moja praca, zapraszam do wsparcia mnie na Suppi, bym mógł się dalej rozwijać </p>" +
                         "<p><a href=\"https://suppi.pl/matmal02\" target=\"_blank\"><img width=\"165\" src=\"https://suppi.pl/api/widget/button.svg?fill=6457FD&amp;textColor=ffffff\"></a></p>"+
-                        "<p style='font-size: 10px;'> pls jestem biedny student i do tego jestem taki malutki 👉👈 </p>" +
                         "<p> Miłego losowania!</p>");
 
                 popup.append(content);
@@ -34582,7 +34579,8 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
-                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są</p>";
+                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są</p>"+
+                        "<p><b>Risky Watch (nie powinna się wyświetlać w trybie streamowym)</b> - teleturnieje, których oglądanie na streamie z różnych powodów może być ryzykowne (do obejrzenia we własnym zakresie)</p>";
 
                 helpPopup.append(content);
                 $("body").append(helpPopup);
