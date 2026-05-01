@@ -38,7 +38,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                     }, this);
 
                     // Store all elements (before filtering)
-                    if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7"))) {
+                    if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch")))) {
                         this.allElements.push({
                             label: label,
                             fitness: fitness,

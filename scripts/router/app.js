@@ -34123,7 +34123,7 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
                     }, this);
 
                     // Store all elements (before filtering)
-                    if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7"))) {
+                    if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch")))) {
                         this.allElements.push({
                             label: label,
                             fitness: fitness,
