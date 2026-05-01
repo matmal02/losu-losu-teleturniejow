@@ -16,6 +16,7 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
             parse: function(response, options) {
                 var models = [];
                 this.allElements = [];
+                this.allTypes = [];
 
                 var elements = new Chance(33).shuffle(response.values); // fixed shuffle
                 _.each(elements, function(element) {
@@ -29,13 +30,6 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                     const years = element[1].split("-");
                     years.sort((a,b) => b-a);
                     const year = years[0];
-
-                    // Track all available types
-                    _.each(type_array, function(type) {
-                        if (type && !_.contains(this.allTypes, type)) {
-                            this.allTypes.push(type);
-                        }
-                    }, this);
 
                     // Store all elements (before filtering)
                     if (!(this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch")))) {
@@ -51,6 +45,13 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
                     
                     // Filter by selected types - exclude items that match selected types
                     if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
+
+                    // Track all available types
+                    _.each(type_array, function(type) {
+                        if (type && !_.contains(this.allTypes, type)) {
+                            this.allTypes.push(type);
+                        }
+                    }, this);
 
                     if (fitness > 0) {
                         models.push({

@@ -17,10 +17,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                         self.render_info("Error: Failed to load data");
                     },
                     success: function() {
-                        if (!self.filtersRendered) {
-                            self.renderTypeFilters();
-                            self.filtersRendered = true;
-                        }
+                        self.renderTypeFilters();
                     }
                 });
             },
@@ -349,7 +346,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                         "color": "#fff",
                         "border": "2px solid #000",
                         "padding": "20px",
-                        "font-size": "18px",
+                        "font-size": "15px",
                         "z-index": "1000",
                         "text-align": "center",
                         "border-radius": "8px",
