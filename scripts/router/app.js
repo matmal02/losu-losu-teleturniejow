@@ -34128,15 +34128,18 @@ define('scripts/collections/google_sheets_v4_wheel_collection',["backbone", "und
 
                     if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch"))) return;
                     
-                    // Filter by selected types - exclude items that match selected types
-                    if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
-
                     // Track all available types
                     _.each(type_array, function(type) {
                         if (type && !_.contains(this.allTypes, type)) {
                             this.allTypes.push(type);
                         }
                     }, this);
+
+                    // Filter by selected types - exclude items that match selected types
+                    if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
+
+                    
+                    
 
                     if (fitness > 0) {
                         models.push({
@@ -34593,19 +34596,32 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
             },
 
             onTypeFilterChange: function() {
-                var self = this;
-                var selectedTypes = [];
+                var checkboxStates = {};
+    $(".wheel-type-checkbox").each(function() {
+        checkboxStates[$(this).val()] = $(this).is(":checked");
+    });
 
-                $(".wheel-type-checkbox:checked").each(function() {
-                    selectedTypes.push($(this).val());
-                });
+    var selectedTypes = [];
+    $(".wheel-type-checkbox:checked").each(function() {
+        selectedTypes.push($(this).val());
+    });
 
-                this.selectedTypes = selectedTypes;
-                this.collection.selectedTypes = selectedTypes;
+    this.selectedTypes = selectedTypes;
+    this.collection.selectedTypes = selectedTypes;
 
-                console.log("Selected types:", selectedTypes);
-                
-                self.populate();
+    // Call populate, which will re-render filters
+    // But we need to restore checkbox states after
+    var self = this;
+    var originalRender = this.renderTypeFilters.bind(this);
+    this.renderTypeFilters = function() {
+        originalRender();
+        // Restore checkbox states
+        Object.keys(checkboxStates).forEach(function(type) {
+            $(".wheel-type-checkbox[value='" + type + "']").prop("checked", checkboxStates[type]);
+        });
+    };
+    
+    self.populate();
             },
 
             reset: function(collection, options) {

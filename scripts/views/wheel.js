@@ -425,19 +425,32 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
             },
 
             onTypeFilterChange: function() {
-                var self = this;
-                var selectedTypes = [];
+                var checkboxStates = {};
+    $(".wheel-type-checkbox").each(function() {
+        checkboxStates[$(this).val()] = $(this).is(":checked");
+    });
 
-                $(".wheel-type-checkbox:checked").each(function() {
-                    selectedTypes.push($(this).val());
-                });
+    var selectedTypes = [];
+    $(".wheel-type-checkbox:checked").each(function() {
+        selectedTypes.push($(this).val());
+    });
 
-                this.selectedTypes = selectedTypes;
-                this.collection.selectedTypes = selectedTypes;
+    this.selectedTypes = selectedTypes;
+    this.collection.selectedTypes = selectedTypes;
 
-                console.log("Selected types:", selectedTypes);
-                
-                self.populate();
+    // Call populate, which will re-render filters
+    // But we need to restore checkbox states after
+    var self = this;
+    var originalRender = this.renderTypeFilters.bind(this);
+    this.renderTypeFilters = function() {
+        originalRender();
+        // Restore checkbox states
+        Object.keys(checkboxStates).forEach(function(type) {
+            $(".wheel-type-checkbox[value='" + type + "']").prop("checked", checkboxStates[type]);
+        });
+    };
+    
+    self.populate();
             },
 
             reset: function(collection, options) {

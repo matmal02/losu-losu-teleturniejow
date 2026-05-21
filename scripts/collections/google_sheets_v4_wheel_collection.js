@@ -43,15 +43,18 @@ define(["backbone", "underscore", "scripts/models/wheel_element", "chance"],
 
                     if (this.syncEnabled && (watched === "TRUE" || d.getFullYear() - year < "7" || type_array.includes("Risky watch"))) return;
                     
-                    // Filter by selected types - exclude items that match selected types
-                    if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
-
                     // Track all available types
                     _.each(type_array, function(type) {
                         if (type && !_.contains(this.allTypes, type)) {
                             this.allTypes.push(type);
                         }
                     }, this);
+
+                    // Filter by selected types - exclude items that match selected types
+                    if (this.selectedTypes.length > 0 && !type_array.some(type => this.selectedTypes.includes(type))) return;
+
+                    
+                    
 
                     if (fitness > 0) {
                         models.push({
