@@ -34485,6 +34485,9 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "text-align": "center"
                     })
                     .html("<h1> Update! </h1>" +
+                        "<p> 21.05.2026: </p>" +
+                        "<p> Przez wczorajszy wieczór oraz noc koło nie było ze względy na przeniesienie oryginalnej tabelki w nowe miejsce. Obecnie wszystko powinno już działać poprawnie. </p>" +
+                        "<p> 01.05.2026: </p>" +
                         "<p> Tym razem dodałem nową kategorię - Risky Watch (nie powinna się wyświetlać w trybie streamowym) </p>" +
                         "<p> W skrócie, do tej kategorii będą należeć teleturnieje, których oglądanie na streamie z różnych powodów może być ryzykowne, np. z powodu specyfiki (bardziej nastawione na widzów 18+) bądź wątpliwego w swej legalności sposobu zdobycia. </p>" +
                         "<p> Jeśli podoba ci się moja praca, zapraszam do wsparcia mnie na Suppi, bym mógł się dalej rozwijać </p>" +
