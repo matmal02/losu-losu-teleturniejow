@@ -34901,7 +34901,7 @@ self.showResultPopup(selected_label, selected_color, selected_link, selected_typ
 define('scripts/config/sheetConfig',[], function() {
     return {
         losulosu: {
-            spreadsheet_id: "1DpuTJXnS2u34baZX_05bNBCtWsfiAizC",
+            spreadsheet_id: "1XOsWWGSy3dHiBsBCwIyG8Tyrdg549Betgmwdh1irJ1g",
             api_key: "AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k"
         }
     };

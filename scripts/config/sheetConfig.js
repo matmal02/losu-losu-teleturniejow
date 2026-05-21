@@ -1,1 +1,1 @@
-define([],function(){return{losulosu:{spreadsheet_id:"1DpuTJXnS2u34baZX_05bNBCtWsfiAizC",api_key:"AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k"}}});
+define([],function(){return{losulosu:{spreadsheet_id:"1XOsWWGSy3dHiBsBCwIyG8Tyrdg549Betgmwdh1irJ1g",api_key:"AIzaSyBvuXXbYN7CMlwwt1slfq6W7b0vzx6Qm_k"}}});
