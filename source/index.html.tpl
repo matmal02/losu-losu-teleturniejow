@@ -15,9 +15,9 @@
 		<h1>Losu losu losu</h1>
 		
 	</header>
-	<div>
+	<!-- <div>
 		<img id="update-image" src="https://i.ibb.co/qY8N1nNM/cooltext500686126385168.gif" style="width: 35%; height: 35%; cursor: pointer;" onclick="window.showUpdatePopupGlobal()">
-	</div>
+	</div> -->
 	<div>
 		<input type="checkbox" id="copyCheckbox">
 		<label for="copyCheckbox" style="color: white; font-family: 'sans-serif', sans-serif;">Kopiuj linki automatycznie</label>
