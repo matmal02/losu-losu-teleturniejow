@@ -34574,16 +34574,16 @@ define('scripts/views/wheel',["jquery", "moment", "underscore", "scripts/helper/
                         "flex-wrap": "wrap",
                     }).innerHtml = "<p><b>Klasyczny</b> - teleturniej typu \"jaki jest, każdy widzi i nikt nie będzie tego, że jest teleturniejem, kwestionował\"</p>" +
                         "<p><b>Muzyczny</b> - teleturnieje, do których oglądania końmi Bartka nie zaciągniecie</p>" +
-                        "<p><b>Interaktywny</b> - teleturniej typu \"widz dzwoni i gra w tetrisa czy co innego\"</p>" +
+                        "<p><b>Interaktywny</b> - teleturniej typu \"widz dzwoni i gra w tetrisa czy coś\"</p>" +
                         "<p><b>Call TV</b> - wyjeba typu \"ty się nie dodzwonisz i dostaniesz rachunek na ileśtam tysięcy zeta, debil co powie 'Pokaż dupę' już tak, a osoba prowadząca się zastanawia, czemu nikt nie potrafi odpowiedzieć ile to jest 2+2\"</p>" +
-                        "<p><b>Kulinarny</b> - teleturniej typu gotowanie (Tak, też nie wierzę, że coś takiego istnieje)</p>" +
+                        "<p><b>Kulinarny</b> - teleturniej typu gotowanie</p>" +
                         "<p><b>Turniej w telewizji</b> - teleturniej w całkiem dosłownym tego słowa znaczeniu, czyli turnieje typu Dzień Sportu w szkole pokazywane w telewizji</p>" +
                         "<p><b>Event</b> - teleturniej w formie jednokrotnego bądź cyklicznego wydarzenia (raz bądź parę razy do roku)</p>" +
                         "<p><b>Segment w programie</b> - teleturniej, który stanowi część większego programu</p>" +
                         "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
-                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są, albo NIE SĄ KURWA TELETURNIEJAMI, MIMO ŻE WSZYSCY PRÓBUJĄ WMÓWIĆ, ŻE SĄ (TAK, PATRZĘ NA CIEBIE 7420 MILION OD ZARAZ)</p>"+
+                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są, ALBO NIE SĄ KURWA TELETURNIEJAMI, MIMO ŻE WSZYSCY PRÓBUJĄ WMÓWIĆ, ŻE SĄ (TAK, PATRZĘ NA CIEBIE, 7420 MILION OD ZARAZ)</p>"+
                         "<p><b>Risky Watch (nie powinna się wyświetlać w trybie streamowym)</b> - teleturnieje, których oglądanie na streamie z różnych powodów może być ryzykowne (do obejrzenia we własnym zakresie)</p>";
 
                 helpPopup.append(content);
