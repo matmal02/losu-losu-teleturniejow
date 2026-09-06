@@ -412,7 +412,7 @@ define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "sc
                         "<p><b>Program rozrywkowy</b> - program rozrywkowy z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie rozrywkowym (przede wszystkim wszelkie celebryckie zabawy) - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Reality show</b> - reality show z elementami teleturnieju, mniej lub bardziej skupiający się na aspekcie reality show - program typu \"wy powiecie, że to nie teleturniej, a inni powiedzą, że to jest teleturniej\"</p>" +
                         "<p><b>Program randkowy</b> - teleturniej typu \"Szukam baby/chłopa, tam są trzy osoby, które będą o mnie walczyć (dosłownie, bądź w przenośni)\"</p>" +
-                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są</p>"+
+                        "<p><b>Inny</b> - teleturnieje, które nie pasują do żadnej z powyższych kategorii, a jest ich za mało by stworzyć nową albo po prostu nie wiem czym one do chuja są, albo NIE SĄ KURWA TELETURNIEJAMI, MIMO ŻE WSZYSCY PRÓBUJĄ WMÓWIĆ, ŻE SĄ (TAK, PATRZĘ NA CIEBIE 7420 MILION OD ZARAZ)</p>"+
                         "<p><b>Risky Watch (nie powinna się wyświetlać w trybie streamowym)</b> - teleturnieje, których oglądanie na streamie z różnych powodów może być ryzykowne (do obejrzenia we własnym zakresie)</p>";
 
                 helpPopup.append(content);
